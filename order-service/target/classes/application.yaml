@@ -1,0 +1,28 @@
+server:
+  port: 8000
+
+spring:
+  # the service name in nacos
+  application:
+    name: order-service
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 120.24.61.202:8848
+    sentinel:
+      transport:
+        dashboard: 127.0.0.1:8081
+        port: 9999
+
+  # mysql info
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://120.24.61.202:3306/bookshop
+    username: root
+    password: zyh20000205
+
+
+mybatis:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
