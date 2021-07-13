@@ -1,4 +1,6 @@
-package edu.zyh.domain.Utils;
+package edu.zyh.domain;
+
+import com.alibaba.fastjson.JSONObject;
 
 public class JsonData {
     private  int stateCode;
@@ -51,4 +53,10 @@ public class JsonData {
         return new JsonData(stateCode, data);
     }
 
+    public static JSONObject generateJson(int userId, String token){
+        JSONObject object = new JSONObject();
+        object.put("userId",userId);
+        object.put("token",token);
+        return object;
+    }
 }

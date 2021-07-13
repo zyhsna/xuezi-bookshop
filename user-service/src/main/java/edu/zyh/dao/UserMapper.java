@@ -28,8 +28,8 @@ public interface UserMapper {
     @Select("select * from purchaser where username = #{username} and password = #{password}")
     Purchaser loginByUsername(@Param("username") String username,@Param("password") String password);
 
-    @Select("select * from purchaser where purchaserId = #{purchaserId}")
-    Purchaser getPurchaserInfo(Integer purchaserId);
+    @Select("select * from purchaser where user_id = #{purchaserId}")
+    Purchaser getPurchaserInfo(@Param("purchaserId") Integer purchaserId);
 
     @Update("update purchaser set username=#{purchaser.username}, password=#{purchaser.password}, address=#{purchaser.address}, " +
             "telephone=#{purchaser.telephone}, sex=#{purchaser.sex} where user_id = #{purchaser.userId}")
