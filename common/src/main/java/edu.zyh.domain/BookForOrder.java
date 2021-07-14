@@ -1,36 +1,23 @@
 package edu.zyh.domain;
 
 
-public class Book {
-
+public class BookForOrder {
     private int id;
     private String bookName;
     private double price;
     private String author;
-    private String coverImg;
-    private String summary;
-    private int sales;
 
+    private int num;
 
     @Override
     public String toString() {
-        return "Book{" +
+        return "BookForOrder{" +
                 "id=" + id +
                 ", bookName='" + bookName + '\'' +
                 ", price=" + price +
                 ", author='" + author + '\'' +
-                ", coverImg='" + coverImg + '\'' +
-                ", summary='" + summary + '\'' +
-                ", sales=" + sales +
+                ", num=" + num +
                 '}';
-    }
-
-    public int getSales() {
-        return sales;
-    }
-
-    public void setSales(int sales) {
-        this.sales = sales;
     }
 
     public int getId() {
@@ -41,7 +28,6 @@ public class Book {
         this.id = id;
     }
 
-
     public String getBookName() {
         return bookName;
     }
@@ -50,7 +36,6 @@ public class Book {
         this.bookName = bookName;
     }
 
-
     public double getPrice() {
         return price;
     }
@@ -58,7 +43,6 @@ public class Book {
     public void setPrice(double price) {
         this.price = price;
     }
-
 
     public String getAuthor() {
         return author;
@@ -69,21 +53,15 @@ public class Book {
     }
 
 
-    public String getCoverImg() {
-        return coverImg;
+
+    public int getNum() {
+        return num;
     }
 
-    public void setCoverImg(String coverImg) {
-        this.coverImg = coverImg;
+    public void setNum(int num) {
+        this.num = num;
     }
 
 
-    public String getSummary() {
-        return summary;
-    }
-
-    public void setSummary(String summary) {
-        this.summary = summary;
-    }
 
 }

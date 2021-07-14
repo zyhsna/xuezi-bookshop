@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import edu.zyh.dao.OrderMapper;
 import edu.zyh.domain.BookOrder;
+import edu.zyh.domain.OrderBookInfo;
 import edu.zyh.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,5 +52,10 @@ public class OrderServiceImpl implements OrderService {
         finally {
             PageHelper.clearPage();
         }
+    }
+
+    @Override
+    public List<OrderBookInfo> getBookOrderInfoOrderId(int orderId) {
+        return orderMapper.getBookOrderInfoByOrderId(orderId);
     }
 }

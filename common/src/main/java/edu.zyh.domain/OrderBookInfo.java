@@ -3,55 +3,60 @@ package edu.zyh.domain;
 
 public class OrderBookInfo {
 
-  private long infoId;
-  private long orderId;
-  private long purchaserId;
-  private long bookId;
-  private long bookNum;
+  private int infoId;
+  private int orderId;
+  private int purchaserId;
+  private int bookId;
+  private int bookNum;
 
-
-  public long getInfoId() {
-    return infoId;
+  @Override
+  public String toString() {
+    return "OrderBookInfo{" +
+            "infoId=" + infoId +
+            ", orderId=" + orderId +
+            ", purchaserId=" + purchaserId +
+            ", bookId=" + bookId +
+            ", bookNum=" + bookNum +
+            '}';
   }
 
-  public void setInfoId(long infoId) {
+  public void setInfoId(int infoId) {
     this.infoId = infoId;
   }
 
-
-  public long getOrderId() {
-    return orderId;
-  }
-
-  public void setOrderId(long orderId) {
+  public void setOrderId(int orderId) {
     this.orderId = orderId;
   }
 
-
-  public long getPurchaserId() {
-    return purchaserId;
-  }
-
-  public void setPurchaserId(long purchaserId) {
+  public void setPurchaserId(int purchaserId) {
     this.purchaserId = purchaserId;
   }
 
-
-  public long getBookId() {
-    return bookId;
-  }
-
-  public void setBookId(long bookId) {
+  public void setBookId(int bookId) {
     this.bookId = bookId;
   }
 
-
-  public long getBookNum() {
-    return bookNum;
-  }
-
-  public void setBookNum(long bookNum) {
+  public void setBookNum(int bookNum) {
     this.bookNum = bookNum;
   }
 
+  public int getInfoId() {
+    return infoId;
+  }
+
+  public int getOrderId() {
+    return orderId;
+  }
+
+  public int getPurchaserId() {
+    return purchaserId;
+  }
+
+  public int getBookId() {
+    return bookId;
+  }
+
+  public int getBookNum() {
+    return bookNum;
+  }
 }

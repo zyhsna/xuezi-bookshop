@@ -2,6 +2,7 @@ package edu.zyh.dao;
 
 
 import edu.zyh.domain.BookOrder;
+import edu.zyh.domain.OrderBookInfo;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
@@ -22,4 +23,7 @@ public interface OrderMapper {
 
     @Select("select * from book_order where purchaser_id = #{purchaserId}")
     List<BookOrder> getOrderByPurchaserId(Integer purchaserId);
+
+    @Select("select * from order_book_info where order_id = #{orderId}")
+    List<OrderBookInfo> getBookOrderInfoByOrderId(int orderId);
 }

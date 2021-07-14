@@ -1,13 +1,26 @@
 package edu.zyh.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.util.Date;
+
 public class BookOrder {
 
   private int orderId;
   private double totalFee;
-  private long purchaserId;
-  private long state;
+  private int purchaserId;
+  private int state;
+  @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
+  private Date orderDate;
 
+  public Date getOrderDate() {
+    return orderDate;
+  }
+
+  public void setOrderDate(Date orderDate) {
+    this.orderDate = orderDate;
+  }
 
   public int getOrderId() {
     return orderId;
@@ -27,20 +40,20 @@ public class BookOrder {
   }
 
 
-  public long getPurchaserId() {
+  public int getPurchaserId() {
     return purchaserId;
   }
 
-  public void setPurchaserId(long purchaserId) {
+  public void setPurchaserId(int purchaserId) {
     this.purchaserId = purchaserId;
   }
 
 
-  public long getState() {
+  public int getState() {
     return state;
   }
 
-  public void setState(long state) {
+  public void setState(int state) {
     this.state = state;
   }
 

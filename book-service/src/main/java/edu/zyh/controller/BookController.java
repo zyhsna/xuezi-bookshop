@@ -17,10 +17,8 @@ public class BookController {
     private BookService bookService;
 
     @RequestMapping("/findBookById")
-    public Book findBookById(int id, HttpServletRequest request) {
+    public Book findBookById(int id) {
         Book book = bookService.findBookById(id);
-        String serverName = request.getServerName();
-        int port = request.getServerPort();
         return book;
     }
 
