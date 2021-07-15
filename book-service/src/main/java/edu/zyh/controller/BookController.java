@@ -2,12 +2,17 @@ package edu.zyh.controller;
 
 import com.github.pagehelper.PageInfo;
 import edu.zyh.domain.Book;
+import edu.zyh.domain.JsonData;
 import edu.zyh.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
+import javax.imageio.ImageIO;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -17,16 +22,48 @@ public class BookController {
     private BookService bookService;
 
     @RequestMapping("/findBookById")
-    public Book findBookById(int id) {
-        Book book = bookService.findBookById(id);
+    public JsonData findBookById(int bookId) {
+        Book book = bookService.findBookById(bookId);
+
+        return JsonData.buildSuccess(book);
+    }
+    @RequestMapping("/findBookByIdForOrder")
+    public Book findBookByIdForOrder(int bookId) {
+        Book book = bookService.findBookByIdForOrder(bookId);
         return book;
     }
+
 
     @RequestMapping("/getBookPriceById")
     double getBookPriceById(@RequestParam("bookId") List<Integer> bookId, @RequestParam("purchaserId") String purchaserId, @RequestParam("bookNum") List<Integer> bookNum) {
         double priceById = bookService.getBookPriceById(bookId, bookNum);
         return priceById;
     }
+
+    @RequestMapping(value = "/findBookCoverImgById")
+    public void  getBookCoverImage(int bookId, HttpServletResponse response) throws IOException {
+        ServletOutputStream os = null;
+        String source_prefix = "book-service/src/main/resources/image/";
+        String source_suffix = ".jpg";
+        String source = source_prefix + bookId + source_suffix;
+        try {
+//        读取图片
+            BufferedImage image = ImageIO.read(new FileInputStream(new File(source)));
+            response.setContentType("image/jpg");
+            os = response.getOutputStream();
+            if (image != null) {
+                ImageIO.write(image, "png", os);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (os != null) {
+                os.flush();
+                os.close();
+            }
+        }
+    }
+
 
     @RequestMapping("/getBookByBooknameOrAuthor")
     List<Book> getBookByBookNameOrAuthor(String Info, Integer pageNum, Integer pageSize) {

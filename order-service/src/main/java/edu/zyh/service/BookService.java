@@ -11,8 +11,8 @@ import java.util.List;
 @FeignClient(value = "book-service")
 public interface BookService {
 
-    @GetMapping("/api/v1/book/findBookById")
-    Book findBookById(@RequestParam("id") int id);
+    @RequestMapping("/api/v1/book/findBookByIdForOrder")
+    Book findBookByIdForOrder(@RequestParam("bookId") int bookId);
 
 
     @RequestMapping("api/v1/book/getBookPriceById")

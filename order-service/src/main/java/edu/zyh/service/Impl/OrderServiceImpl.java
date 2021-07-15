@@ -9,6 +9,10 @@ import edu.zyh.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -17,39 +21,39 @@ public class OrderServiceImpl implements OrderService {
     private OrderMapper orderMapper;
 
     @Override
-    public int payForTheOrder(int purchaserId, int orderId) {
-        int result =  orderMapper.payForTheOrder(purchaserId, orderId);
+    public int payForTheOrder(int userId, int orderId) {
+        int result = orderMapper.payForTheOrder(userId, orderId);
         return result;
     }
 
     @Override
-    public int makeOrder(double priceById, String purchaserId, List<Integer> bookId,List<Integer> bookNum) {
+    public int makeOrder(double priceById, String purchaserId, List<Integer> bookId, List<Integer> bookNum) {
         int parseInt = Integer.parseInt(purchaserId);
+
         BookOrder bookOrder = new BookOrder();
         bookOrder.setPurchaserId(parseInt);
         bookOrder.setTotalFee(priceById);
         bookOrder.setState(0);
+        String nowTime= LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        bookOrder.setOrderDate(nowTime);
         orderMapper.makeOrder(bookOrder);
         int orderId = bookOrder.getOrderId();
 
-        //insert into order_book_info
-        for(int i=0;i<bookId.size();i++){
+        for (int i = 0; i < bookId.size(); i++) {
             orderMapper.insertOrderBookInfo(orderId, parseInt, bookId.get(i), bookNum.get(i));
+            orderMapper.updateSales(bookNum.get(i), bookId.get(i));
         }
-
-
         return orderId;
     }
 
     @Override
     public List<BookOrder> getOrderByPurchaserId(Integer purchaserId, Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize);
-        try{
+        try {
             List<BookOrder> allBook = orderMapper.getOrderByPurchaserId(purchaserId);
             PageInfo pageInfo = new PageInfo(allBook);
             return pageInfo.getList();
-        }
-        finally {
+        } finally {
             PageHelper.clearPage();
         }
     }
@@ -57,5 +61,11 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<OrderBookInfo> getBookOrderInfoOrderId(int orderId) {
         return orderMapper.getBookOrderInfoByOrderId(orderId);
+    }
+
+    @Override
+    public int getOrderNum(Integer userId) {
+        return orderMapper.getOrderNum(userId);
+
     }
 }

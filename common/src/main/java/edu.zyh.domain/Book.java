@@ -12,6 +12,7 @@ public class Book {
     private int sales;
 
 
+
     @Override
     public String toString() {
         return "Book{" +

@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface OrderMapper {
 
-    @Insert({"insert into book_order(total_fee, purchaser_id, state) value (#{bookOrder.totalFee}, #{bookOrder.purchaserId}, #{bookOrder.state});"})
+    @Insert({"insert into book_order(total_fee, purchaser_id, state, order_date) value (#{bookOrder.totalFee}, #{bookOrder.purchaserId}, #{bookOrder.state},#{bookOrder.orderDate});"})
     @Options(useGeneratedKeys = true, keyProperty = "bookOrder.orderId", keyColumn = "order_id")
     int makeOrder(@Param("bookOrder") BookOrder bookOrder);
 
@@ -19,11 +19,17 @@ public interface OrderMapper {
     void insertOrderBookInfo(@Param("orderId") int orderId, @Param("purchaserId")int purchaserId, @Param("bookId")int bookId, @Param("bookNum")int bookNum);
 
     @Update("update book_order set state = 1 where order_id = #{orderId} and purchaser_id = #{purchaserId}")
-    int payForTheOrder(@Param("purchaserId") int purchaserId,@Param("orderId") int orderId);
+    int payForTheOrder(@Param("purchaserId") int userId,@Param("orderId") int orderId);
 
     @Select("select * from book_order where purchaser_id = #{purchaserId}")
     List<BookOrder> getOrderByPurchaserId(Integer purchaserId);
 
     @Select("select * from order_book_info where order_id = #{orderId}")
     List<OrderBookInfo> getBookOrderInfoByOrderId(int orderId);
+
+    @Update("update book set sales = sales + #{num} where id = #{bookId};")
+    int updateSales(@Param("num")int num,@Param("bookId") int bookId);
+
+    @Select("select count(*) from book_order where purchaser_id = #{userId}")
+    int getOrderNum(@Param("userId") int userId);
 }

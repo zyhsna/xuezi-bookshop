@@ -14,6 +14,7 @@ spring:
         dashboard: 127.0.0.1:8081
         port: 9999
 
+
   # mysql info
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -26,3 +27,7 @@ mybatis:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     map-underscore-to-camel-case: true
+
+feign:
+  httpclient:
+    connection-timeout: 5000

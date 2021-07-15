@@ -53,6 +53,10 @@ public class JsonData {
         return new JsonData(stateCode, data);
     }
 
+    public static JsonData build(int stateCode, Object data){
+        return new JsonData(stateCode, data);
+    }
+
     public static JSONObject generateJson(int userId, String token){
         JSONObject object = new JSONObject();
         object.put("userId",userId);
