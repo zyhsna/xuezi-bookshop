@@ -99,4 +99,19 @@ public class BookServiceImpl implements BookService {
     public Book findBookByIdForOrder(int bookId) {
         return bookMapper.findBookById(bookId);
     }
+
+    @Override
+    public int getSearchedBookNum(String[] strings) {
+        String bookName = strings[0];
+        bookName = "%" + bookName + "%";
+        String author = "%";
+        if (strings.length > 1) {
+            author = strings[1];
+        }
+        author = "%" + author + "%";
+
+        int allBookNum = bookMapper.getSearchedBookNum(bookName, author);
+//        PageInfo<Book> pageInfo = new PageInfo(allBook);
+        return allBookNum;
+    }
 }

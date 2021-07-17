@@ -31,4 +31,9 @@ public interface BookMapper {
 
     @Delete("delete from book where id = #{bookId}")
     int delBook(@Param("bookId") int bookId);
+
+    @Select("select count(*) from (select all_info.id from (select id, concat(book_name, author) as info from book ) all_info " +
+            "where all_info.info like #{bookName} and all_info.info like #{author}" +
+            "     ) as result join book on result.id where result.id = book.id")
+    int getSearchedBookNum(@Param("bookName") String bookName, @Param("author") String author);
 }

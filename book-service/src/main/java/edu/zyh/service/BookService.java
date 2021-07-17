@@ -23,4 +23,6 @@ public interface BookService {
     byte[] getBookCoverImgById(int bookId) throws IOException;
 
     Book findBookByIdForOrder(int bookId);
+
+    int getSearchedBookNum(String[] strings);
 }

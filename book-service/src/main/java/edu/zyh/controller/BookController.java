@@ -13,6 +13,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 @RestController
@@ -27,6 +29,23 @@ public class BookController {
 
         return JsonData.buildSuccess(book);
     }
+
+    private Book findBookByIdForBooksList(int bookId) {
+        Book book = bookService.findBookById(bookId);
+        return book;
+    }
+
+    @RequestMapping("/findBooksByBookIds")
+    public JsonData findBooksByBookIds(Integer[] bookId){
+        System.out.println(Arrays.toString(bookId));
+        List<Book> result = new LinkedList<>();
+        for (Integer integer : bookId) {
+            result.add(findBookByIdForBooksList(integer));
+        }
+        return JsonData.build(0, result);
+    }
+
+
     @RequestMapping("/findBookByIdForOrder")
     public Book findBookByIdForOrder(int bookId) {
         Book book = bookService.findBookByIdForOrder(bookId);
@@ -64,12 +83,18 @@ public class BookController {
         }
     }
 
-
-    @RequestMapping("/getBookByBooknameOrAuthor")
-    List<Book> getBookByBookNameOrAuthor(String Info, Integer pageNum, Integer pageSize) {
+    @RequestMapping("/getBookByBookNameOrAuthor")
+    public JsonData getBookByBookNameOrAuthor(String Info, Integer pageNum, Integer pageSize) {
         String[] strings = Info.split(" ");
         List<Book> bookByBookNameOrAuthor = bookService.getBookByBookNameOrAuthor(strings, pageNum, pageSize);
-        return bookByBookNameOrAuthor;
+        return JsonData.build(0,bookByBookNameOrAuthor);
+    }
+
+    @RequestMapping("/getSearchedBookNum")
+    public JsonData getSearchedBookNum(String Info) {
+        String[] strings = Info.split(" ");
+        int bookByBookNameOrAuthor = bookService.getSearchedBookNum(strings);
+        return JsonData.build(0,bookByBookNameOrAuthor);
     }
 
     @RequestMapping("/insetNewBook")
